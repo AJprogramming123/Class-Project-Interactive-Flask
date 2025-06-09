@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flask App</title>
+    <title>Email Breach Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
+
 <body>
-    <h1>Hello, Flask is working!</h1>
+    <div class="container">
+        <h1>Email Breach Search</h1>
+        <form method="post">
+            <input type="text" name="user_input" placeholder="Enter your email" required>
+            <button type="submit">Check Email</button>
+        </form>
+        {% if user_input %}
+            <div class="result">
+                You entered: <strong>{{ user_input }}</strong>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
