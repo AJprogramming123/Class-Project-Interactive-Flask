@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breach Results for {{ email }}</title>
+</head>
+<body>
+    <h1>Breach Results for {{ email }}</h1>
+    {% if breach_data %}
+        <pre>{{ breach_data | tojson(indent=2) }}</pre>
+    {% else %}
+        <p>No breach data available.</p>
+    {% endif %}
+    <a href="{{ url_for('beginning.index') }}">Search another email</a>
+</body>
+</html>
