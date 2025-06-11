@@ -1,16 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Breach Results for {{ email }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
 </head>
+
+
+
+
 <body>
-    <h1>Breach Results for {{ email }}</h1>
+    <h1>Breach Results for: {{ email }}</h1>
+
     {% if breach_data %}
-        <pre>{{ breach_data | tojson(indent=2) }}</pre>
-    {% else %}
-        <p>No breach data available.</p>
+      {% for breach in breach_data %}
+        <div class="breach">
+          <h2>
+            {% if breach.icon %}
+              <img src="{{ breach.icon }}" alt="{{ breach.name }} icon" width="40" />
+            {% endif %}
+            {{ breach.name }} ({{ breach.breach_date }})
+          </h2>
+          <p><strong>Records/accounts breached:</strong> {{ breach.rows }}</p>
+          <p>{{ breach.summary | safe }}</p>
+        <!--                                                                                  We can add this if there is an actual email that is exposed the compromised data.
+          <h3>Compromised Data:</h3>
+          <ul class="field-list">
+            {% for field in breach.compromised_fields %}
+              <li>
+                <i class="fa fa-{{ field.fa_icon }}"></i>
+                <strong>{{ field.label }}</strong>
+                {% if field.value %}
+                  : {{ field.value }}
+                {% endif %}
+                {% if field.sensitive %}
+                  <span class="sensitive">(Sensitive)</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        -->
+        </div>
+      {% endfor %}
     {% endif %}
+
     <a href="{{ url_for('beginning.index') }}">Search another email</a>
 </body>
 </html>
