@@ -1,9 +1,22 @@
 from dotenv import load_dotenv
 import os
 import requests
+import html
+import re
 
 load_dotenv()
 RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
+
+def clean_description(raw_desc):
+    if not raw_desc:
+        return ""
+    # Unescape HTML entities like &nbsp;
+    decoded = html.unescape(raw_desc)
+    # Remove any HTML tags (if any)
+    clean_text = re.sub(r'<.*?>', '', decoded)
+    # Replace multiple spaces/newlines with a single space, strip edges
+    clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+    return clean_text
 
 def check_email_breach(email):
     url = f"https://email-breach-search.p.rapidapi.com/rapidapi/search-email/{email}"
@@ -23,12 +36,10 @@ def check_email_breach(email):
     processed_breaches = []
 
     for breach in raw_data:
-        # Extract fields (which seem to be indexed keys like '0', '1', etc.)
         compromised_fields = []
 
-        # The fields are numeric keys as strings — filter them
         for key, value in breach.items():
-            if key.isdigit():  # Only these keys hold field info
+            if key.isdigit():
                 compromised_fields.append({
                     "field": value.get("field"),
                     "label": value.get("label"),
@@ -39,12 +50,15 @@ def check_email_breach(email):
                     "id": value.get("id")
                 })
 
+        #WHERE THE FILTER IS USEDDDDD
+        clean_summary = clean_description(breach.get("summary"))
+
         processed_breaches.append({
             "name": breach.get("name"),
             "breach_date": breach.get("breach_date"),
             "upload_date": breach.get("upload_date"),
             "rows": breach.get("rows"),
-            "summary": breach.get("summary"),
+            "summary": clean_summary,   # Use cleaned summary
             "hibp_id": breach.get("hibp_id"),
             "icon": breach.get("icon"),
             "compromised_fields": compromised_fields
