@@ -17,6 +17,9 @@ def clean_description(raw_desc):
     # Replace multiple spaces/newlines with a single space, strip edges
     clean_text = re.sub(r'\s+', ' ', clean_text).strip()
     return clean_text
+#----------------------------------------------------------------------------------#
+
+
 
 def check_email_breach(email):
     url = f"https://email-breach-search.p.rapidapi.com/rapidapi/search-email/{email}"
