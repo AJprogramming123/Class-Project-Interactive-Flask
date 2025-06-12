@@ -1,5 +1,4 @@
 pyproject.toml
-setup.cfg
 src/App/__init__.py
 src/App/api_request.py
 src/App/beginning.py
