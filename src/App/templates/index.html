@@ -5,25 +5,19 @@
     <title>Email Breach Search</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
-
 <body>
-
-
 
     <div class="container">
         <h1>Email Breach Search</h1>
+        <p class="tagline">See if your email has ever been caught in a data breach 🕵️‍♂️</p>
+
         <form method="post">
-            <input type="text" name="user_input" placeholder="Enter your email" required>
+            <div class="input-icon">
+                <input type="text" name="user_input" placeholder="Enter your email" required>
+            </div>
             <button type="submit">Check Email</button>
         </form>
     </div>
 
-
-    
 </body>
-
-
-
-
-
 </html>

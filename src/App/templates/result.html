@@ -13,25 +13,28 @@
     <h1>Breach Results for: {{ email }}</h1>
 
     {% if breach_data %}
+
       {% for breach in breach_data %}
         <div class="breach">
+
           <h2>
             {% if breach.icon %}
               <img src="{{ breach.icon }}" alt="{{ breach.name }} icon" width="40" />
             {% endif %}
+
             {{ breach.name }} ({{ breach.breach_date }})
           </h2>
+
           <p><strong>Records/accounts breached:</strong> {{ breach.rows }}</p>
           <p>{{ breach.summary }}</p>
                                                                                     
         </div>
       {% endfor %}
+
     {% endif %}
 
     <a href="{{ url_for('beginning.index') }}">Search another email</a>
 </body>
-
-
 
 
 

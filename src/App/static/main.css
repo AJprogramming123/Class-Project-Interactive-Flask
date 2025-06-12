@@ -1,29 +1,47 @@
+
 body {
-    background: #0a0f0d; 
+    background: #0a0f0d;
     font-family: 'Segoe UI', Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #e0ffe0; 
+    color: #e0ffe0;
 }
 
+
+* {
+    transition: all 0.2s ease-in-out;
+    border-radius: 6px;
+}
+
+
 .container {
-    background: #1a1f1d; 
+    background: #1a1f1d;
     margin-top: 80px;
     padding: 2rem 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 255, 0, 0.15); 
+    box-shadow: 0 4px 24px rgba(0, 255, 0, 0.15);
     width: 100%;
     max-width: 400px;
     text-align: center;
 }
 
+
 h1 {
-    color: #6aff6a; 
-    margin-bottom: 1.5rem;
+    color: #6aff6a;
+    margin-bottom: 0.5rem;
 }
+
+
+.tagline {
+    font-size: 0.95rem;
+    color: #aaffaa;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
 
 form {
     display: flex;
@@ -31,42 +49,43 @@ form {
     gap: 1rem;
 }
 
-input[type="text"] {
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon input {
     padding: 0.75rem 1rem;
+    padding-left: 2.5rem;
     border: 1px solid #3aff3a;
     background: #111814;
-    border-radius: 6px;
+    background-image: url('https://img.icons8.com/ios-filled/24/00ff88/new-post.png');
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
     font-size: 1rem;
     color: #e0ffe0;
 }
+
 
 input[type="text"]:focus {
     border-color: #66ff66;
     outline: none;
     background: #152a1d;
+    box-shadow: 0 0 8px #00ff88;
 }
+
 
 button {
     padding: 0.75rem 1rem;
-    background: #00c851; 
+    background: #00c851;
     color: #fff;
     border: none;
-    border-radius: 6px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 button:hover {
     background: #007e33;
-}
-
-.result {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: #1d2e1d;
-    border-radius: 6px;
-    color: #baffba;
-    word-break: break-word;
 }
