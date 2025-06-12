@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 import requests
 import html
-import re
+import re #the package that works with regex to help you find or modify things in text
 
 load_dotenv()
 RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
@@ -11,22 +11,23 @@ def clean_description(raw_desc):
     if not raw_desc:
         return ""
     # Unescape HTML entities like &nbsp;
-    decoded = html.unescape(raw_desc) #This actually converts these **entities** into their actual characters so the text is easier to read. 
+    decoded = html.unescape(raw_desc) #This actually converts these **entities** into their actual characters so the text is easier to read. '<' '>' '&'
 
     # Remove any HTML tags (if any)
-    clean_text = re.sub(r'<.*?>', '', decoded)
+    clean_text = re.sub(r'<.*?>', '', decoded) #&lt; '<' ----------- &gt; '>' ---A module---
     '''
     <.*> if for greedy matching (It will legit remove the setence between the <> tags)
     <.*?> its called lazy matching it leave the text behind but remove the tags itself making it easy and most usable
     '''
     # Replaces multiple spaces/newlines left from removing the HTML texts with a single space, strip edges
     clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+    
     return clean_text
 #----------------------------------------------------------------------------------#
 
 
 
-def check_email_breach(email): # [Test 1] through pytest to test my logic
+def check_email_breach(email):
     url = f"https://email-breach-search.p.rapidapi.com/rapidapi/search-email/{email}"
     headers = {
         "x-rapidapi-key": RAPIDAPI_KEY,
@@ -35,7 +36,7 @@ def check_email_breach(email): # [Test 1] through pytest to test my logic
     response = requests.get(url, headers=headers)
 
 
-#If it returns None then something is wrong with the API itself [Test 2]
+#If it returns None then something is wrong with the API itself [Test 1]
     if response.status_code != 200:
         return None
     raw_data = response.json() #It's json formatted for communication between the API
