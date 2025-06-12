@@ -35,15 +35,20 @@ def check_email_breach(email):
     }
     response = requests.get(url, headers=headers)
 
-
-#If it returns None then something is wrong with the API itself [Test 1]
+#--------------Test setup-----------------------------------------------------------# 
     if response.status_code != 200:
-        return None
-    raw_data = response.json() #It's json formatted for communication between the API
-    
-    if not raw_data or 'message' in raw_data:
+        print(f"Error: Received status code {response.status_code}")
         return None
 
+    raw_data = response.json()
+
+    if not raw_data:
+        print("Error: Empty response from API")
+        return None
+
+    if 'message' in raw_data:
+        print(f"API Error Message: {raw_data['message']}")
+        return None
 
 #------------------------------------------------------------------------------------#
     processed_breaches = [] # summary: add one dictionary per breach into this list
