@@ -16,8 +16,8 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: frontend
     ports:
       - "80:80"  # Expose nginx on default HTTP
