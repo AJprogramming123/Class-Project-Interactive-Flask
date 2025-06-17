@@ -1,0 +1,36 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and tag backend image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/my-flask-backend:latest ./src
+
+      - name: Build and tag frontend image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/my-frontend:latest ./frontend
+
+      - name: Push backend image
+        run: docker push ghcr.io/${{ github.repository_owner }}/my-flask-backend:latest
+
+      - name: Push frontend image
+        run: docker push ghcr.io/${{ github.repository_owner }}/my-frontend:latest
