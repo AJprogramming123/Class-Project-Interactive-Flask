@@ -24,25 +24,11 @@ jobs:
           username: ajprogramming123
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Create .env file
+      - name: Create .env file with secrets
         run: echo "APIKEY=${{ secrets.APIKEY }}" > .env
 
-      - name: Build and tag backend image
-        run: |
-          docker build \
-            --build-arg APIKEY=${{ secrets.APIKEY }} \
-            -t ghcr.io/ajprogramming123/emailbreach-backend:1.1 ./src
-#Change the name here (on top)
+      - name: Build images with Docker Compose
+        run: docker compose build
 
-      - name: Build and tag frontend image
-        run: |
-          docker build \
-            -t ghcr.io/ajprogramming123/emailbreach-frontend:1.1 ./frontend
-#Change the name here (on top)
-
-#---pushing the image---#
-      - name: Push backend image
-        run: docker push ghcr.io/ajprogramming123/emailbreach-backend:1.1
-
-      - name: Push frontend image
-        run: docker push ghcr.io/ajprogramming123/emailbreach-frontend:1.1
+      - name: Push images to GitHub Container Registry
+        run: docker compose push
