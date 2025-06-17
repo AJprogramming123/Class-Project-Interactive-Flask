@@ -2,11 +2,6 @@ name: Build and Push Docker Images
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Image tag (e.g., v1.2 or latest)'
-        required: true
-        default: 'latest'
 
 jobs:
   build:
@@ -31,11 +26,6 @@ jobs:
 
       - name: Build images with Docker Compose
         run: docker compose build
-
-      - name: Tag images with input version
-        run: |
-          docker tag ghcr.io/ajprogramming123/emailbreach-backend:latest ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.tag }}
-          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:latest ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.tag }}
 
       - name: Push images to GitHub Container Registry
         run: docker compose push
