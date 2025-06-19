@@ -36,7 +36,7 @@ jobs:
       
       - name: Retag backend image
         run: |
-         docker tag backend:latest ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.new_version }}
+         docker tag emailbreach:latest ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.new_version }}
          
       - name: Push new backend tag
         run: docker push ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.new_version }}
