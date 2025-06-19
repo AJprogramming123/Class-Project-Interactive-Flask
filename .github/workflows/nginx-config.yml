@@ -26,4 +26,6 @@ jobs:
           docker compose build
 
       - name: Push new nginx (reverse proxy) tag
-        run: docker push ghcr.io/ajprogramming123/emailbreach-reverseproxy:latest
+        run: |
+          docker tag reverse-proxy:latest ghcr.io/ajprogramming123/emailbreach-reverseproxy:latest
+          docker push ghcr.io/ajprogramming123/emailbreach-reverseproxy:latest
