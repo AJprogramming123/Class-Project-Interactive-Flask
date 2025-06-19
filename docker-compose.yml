@@ -11,7 +11,7 @@ services:
 
   reverse-proxy:
     image: nginx:alpine
-    container_name: reverse-proxy
+    container_name: reverseproxy
     ports:
       - "80:80"      # expose nginx to cloudflare tunnel (awesome sauce)
     volumes:
