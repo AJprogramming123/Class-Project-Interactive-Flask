@@ -1,4 +1,4 @@
-name: [nginx changes setup] image push
+name: image push [nginx changes setup] 
 
 on:
   workflow_dispatch:
