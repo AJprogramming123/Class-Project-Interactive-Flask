@@ -30,16 +30,8 @@ jobs:
 
       - name: Retag backend image
         run: |
-          docker pull ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.old_version }}
-          docker tag ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.new_version }}
-
-      - name: Retag frontend image
-        run: |
-          docker pull ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.old_version }}
-          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.new_version }}
+          docker pull ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.old_version }}
+          docker tag ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.new_version }}
 
       - name: Push new backend tag
-        run: docker push ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.new_version }}
-
-      - name: Push new frontend tag
-        run: docker push ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.new_version }}
+        run: docker push ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.new_version }}
