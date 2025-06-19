@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: Docker image push!! [flask app setup]
 
 on:
   workflow_dispatch:
