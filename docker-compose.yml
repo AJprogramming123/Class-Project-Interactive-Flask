@@ -12,7 +12,7 @@ services:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
-    image: ajprogramming123/emailbreach-reverseproxy
+    image: reverseproxy
     container_name: reverseproxy
     ports:
       - "80:80"
