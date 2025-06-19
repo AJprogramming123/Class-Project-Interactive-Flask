@@ -3,9 +3,6 @@ name: Docker image push!! [flask app setup]
 on:
   workflow_dispatch:
     inputs:
-      old_version:
-        description: 'Old image tag (e.g., v1.1)'
-        required: true
       new_version:
         description: 'New image tag to apply (e.g., v1.2)'
         required: true
