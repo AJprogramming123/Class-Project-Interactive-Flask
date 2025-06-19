@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: backend
+    container_name: emailbreach
     environment:
       - RAPIDAPI_KEY=${RAPIDAPI_KEY}
 
