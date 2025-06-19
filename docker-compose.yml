@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: ghcr.io/ajprogramming123/emailbreach-backend:v1.2
+    image: ghcr.io/ajprogramming123/emailbreach-backend:v1.3
     container_name: backend
     ports:
       - "5000:5000"
@@ -10,7 +10,7 @@ services:
       - FLASK_ENV=development
 
   frontend:
-    image: ghcr.io/ajprogramming123/emailbreach-frontend:v1.2
+    image: ghcr.io/ajprogramming123/emailbreach-frontend:v1.3
     container_name: frontend
     # no ports, accessed only internally
 
