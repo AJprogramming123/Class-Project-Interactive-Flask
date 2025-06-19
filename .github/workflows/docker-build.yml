@@ -3,9 +3,12 @@ name: Build and Push Docker Images
 on:
   workflow_dispatch:
     inputs:
-      version:
+      old_version:
+        description: 'Old image tag (e.g., v1.1)'
         required: true
-        default: 'latest'
+      new_version:
+        description: 'New image tag to apply (e.g., v1.2)'
+        required: true
 
 jobs:
   build:
@@ -25,19 +28,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build images with Docker Compose
-        run: docker compose build
-
-      - name: Tag backend image with version
+      - name: Retag backend image
         run: |
-          docker tag ghcr.io/ajprogramming123/emailbreach-backend:v1.1 ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
+          docker pull ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.old_version }}
+          docker tag ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.new_version }}
 
-      - name: Tag frontend image with version
+      - name: Retag frontend image
         run: |
-          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:v1.1 ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.version }}
+          docker pull ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.old_version }}
+          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.new_version }}
 
-      - name: Push backend image with version tag
-        run: docker push ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
+      - name: Push new backend tag
+        run: docker push ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.new_version }}
 
-      - name: Push frontend image with version tag
-        run: docker push ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.version }}
+      - name: Push new frontend tag
+        run: docker push ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.new_version }}
