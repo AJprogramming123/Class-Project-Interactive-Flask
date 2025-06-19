@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   backend:
-    build: 
+    build:
       context: .
       dockerfile: ./Dockerfile
     container_name: backend
     environment:
-      - FLASK_ENV=development
+      - RAPIDAPI_KEY=${RAPIDAPI_KEY}
 
   reverse-proxy:
     image: nginx:alpine
