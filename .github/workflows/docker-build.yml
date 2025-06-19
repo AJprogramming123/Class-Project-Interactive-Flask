@@ -30,11 +30,11 @@ jobs:
 
       - name: Tag backend image with version
         run: |
-          docker tag ghcr.io/ajprogramming123/emailbreach-backend:latest ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
+          docker tag ghcr.io/ajprogramming123/emailbreach-backend:v1.1 ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
 
       - name: Tag frontend image with version
         run: |
-          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:latest ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.version }}
+          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:v1.1 ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.version }}
 
       - name: Push backend image with version tag
         run: docker push ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
