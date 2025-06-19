@@ -11,6 +11,7 @@ services:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
+    image: reverseproxy
     container_name: reverseproxy
     ports:
       - "80:80"
