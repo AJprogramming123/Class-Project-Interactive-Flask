@@ -25,13 +25,21 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ajprogramming123
           password: ${{ secrets.GHCR_TOKEN }}
 
+      - name: Build images with docker-compose
+        run: |
+          docker-compose build
+
+
+      
       - name: Retag backend image
         run: |
-          docker pull ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.old_version }}
-          docker tag ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.new_version }}
+          docker tag ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.old_version }} ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.new_version }}
 
       - name: Push new backend tag
         run: docker push ghcr.io/ajprogramming123/emailbreach:${{ github.event.inputs.new_version }}
+
+      - name: Push new nginx (reverse proxy) tag
+        run: docker push ghcr.io/ajprogramming123/emailbreach-reverseproxy:${{ github.event.inputs.new_version }}
