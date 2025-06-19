@@ -2,6 +2,10 @@ name: Build and Push Docker Images
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        default: 'latest'
 
 jobs:
   build:
@@ -18,14 +22,22 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ajprogramming123
+          username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
-
-      - name: Create .env file with secrets
-        run: echo "APIKEY=${{ secrets.APIKEY }}" > .env
 
       - name: Build images with Docker Compose
         run: docker compose build
 
-      - name: Push images to GitHub Container Registry
-        run: docker compose push
+      - name: Tag backend image with version
+        run: |
+          docker tag ghcr.io/ajprogramming123/emailbreach-backend:latest ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
+
+      - name: Tag frontend image with version
+        run: |
+          docker tag ghcr.io/ajprogramming123/emailbreach-frontend:latest ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.version }}
+
+      - name: Push backend image with version tag
+        run: docker push ghcr.io/ajprogramming123/emailbreach-backend:${{ github.event.inputs.version }}
+
+      - name: Push frontend image with version tag
+        run: docker push ghcr.io/ajprogramming123/emailbreach-frontend:${{ github.event.inputs.version }}
