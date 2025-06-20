@@ -25,14 +25,13 @@ jobs:
           username: ajprogramming123
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build ARM64 backend image
+      - name: Create and use buildx builder
         run: |
-          docker build --platform linux/arm64 -t emailbreach-arm64 .
+          docker buildx create --use --name arm64builder || docker buildx use arm64builder
 
-      - name: Retag ARM64 backend image
+      - name: Build and push ARM64 backend image
         run: |
-          docker tag emailbreach-arm64 ghcr.io/ajprogramming123/emailbreach-arm64:${{ github.event.inputs.new_version }}
-
-      - name: Push new ARM64 backend tag
-        run: |
-          docker push ghcr.io/ajprogramming123/emailbreach-arm64:${{ github.event.inputs.new_version }}
+          docker buildx build \
+            --platform linux/arm64 \
+            --tag ghcr.io/ajprogramming123/emailbreach-arm64:${{ github.event.inputs.new_version }} \
+            --push .
