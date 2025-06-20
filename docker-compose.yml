@@ -12,7 +12,6 @@ services:
       build:
         context: .
         dockerfile: ./Dockerfile
-        platform: linux/arm/v7
       image: emailbreach-arm32
       container_name: emailbreach-arm32
       environment:
