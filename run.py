@@ -16,5 +16,4 @@ app = create_app()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
-
-
+#Flask is an HTTP server, anything that wants to talk to it (like Nginx or curl) needs to send HTTP requests to that port.
