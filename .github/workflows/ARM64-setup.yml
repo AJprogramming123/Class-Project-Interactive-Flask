@@ -28,6 +28,6 @@ jobs:
       - name: Build and push ARM64 backend image
         run: |
           docker buildx build \
-            --platform linux/arm64/v8 \
+            --platform linux/arm/v7 \
             --tag ghcr.io/ajprogramming123/emailbreach-arm64:${{ github.event.inputs.new_version }} \
             --push .
