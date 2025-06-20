@@ -28,3 +28,15 @@ services:
       - "80:80"
     depends_on:
       - backend
+
+  reverse-proxy-arm32:
+    platform: linux/arm/v7                   # <-- specify ARM32 platform
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    image: reverseproxy-arm32
+    container_name: reverseproxy-arm32
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-arm32
