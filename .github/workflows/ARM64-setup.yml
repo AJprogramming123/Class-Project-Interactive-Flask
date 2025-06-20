@@ -1,4 +1,4 @@
-name: ARM64 ---- Docker image push!! [flask app setup]
+name: Build and Push ARM32 Image via Compose
 
 on:
   workflow_dispatch:
@@ -25,9 +25,11 @@ jobs:
           username: ajprogramming123
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build and push ARM64 backend image
-        run: |
-          docker buildx build \
-            --platform linux/arm/v7 \
-            --tag ghcr.io/ajprogramming123/emailbreach-arm64:${{ github.event.inputs.new_version }} \
-            --push .
+      - name: Build images with docker-compose
+        run: docker compose build backend-arm32
+
+      - name: Tag backend-arm32 image for GHCR
+        run: docker tag emailbreach-arm32 ghcr.io/ajprogramming123/emailbreach-arm32:${{ github.event.inputs.new_version }}
+
+      - name: Push tagged ARM32 backend image to GHCR
+        run: docker push ghcr.io/ajprogramming123/emailbreach-arm32:${{ github.event.inputs.new_version }}
