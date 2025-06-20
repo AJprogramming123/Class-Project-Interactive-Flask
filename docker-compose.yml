@@ -7,16 +7,6 @@ services:
     container_name: emailbreach
     environment:
       - RAPIDAPI_KEY=${RAPIDAPI_KEY}
-
-  backend-arm32:
-    platform: linux/arm/v7  
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    image: emailbreach-arm32
-    container_name: emailbreach-arm32
-    environment:
-      - RAPIDAPI_KEY=${RAPIDAPI_KEY}
         
   reverse-proxy:
     build:
@@ -28,7 +18,19 @@ services:
       - "80:80"
     depends_on:
       - backend
+#------------------------------------------------------------#
 
+
+  backend-arm32:
+      platform: linux/arm/v7  
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      image: emailbreach-arm32
+      container_name: emailbreach-arm32
+      environment:
+        - RAPIDAPI_KEY=${RAPIDAPI_KEY}
+        
   reverse-proxy-arm32:
     platform: linux/arm/v7                   # <-- specify ARM32 platform
     build:
