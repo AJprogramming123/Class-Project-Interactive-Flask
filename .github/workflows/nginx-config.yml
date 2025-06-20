@@ -23,7 +23,7 @@ jobs:
 
       - name: Build images with docker-compose
         run: |
-          docker compose build reverse-proxy
+          docker compose build
 
       - name: Push new nginx (reverse proxy) tag
         run: |
