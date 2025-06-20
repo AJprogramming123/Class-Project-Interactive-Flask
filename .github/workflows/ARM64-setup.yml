@@ -1,4 +1,4 @@
-name: Build and Push ARM32 Image via Compose
+name: ARM32 Image creation
 
 on:
   workflow_dispatch:
