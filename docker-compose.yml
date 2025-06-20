@@ -8,13 +8,13 @@ services:
     environment:
       - RAPIDAPI_KEY=${RAPIDAPI_KEY}
 
-  backend-arm64:
+  backend-arm32:
       build:
         context: .
-        dockerfile: ./arm64/Dockerfile
-        platform: linux/arm64
-      image: emailbreach-arm64
-      container_name: emailbreach-arm64
+        dockerfile: ./Dockerfile
+        platform: linux/arm/v7
+      image: emailbreach-arm32
+      container_name: emailbreach-arm32
       environment:
         - RAPIDAPI_KEY=${RAPIDAPI_KEY}
         
