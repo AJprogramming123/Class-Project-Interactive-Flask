@@ -28,6 +28,9 @@ services:
       - "80:80"
     depends_on:
       - backend
+    volumes:
+      - /etc/ssl/mycerts/certificate.crt:/etc/ssl/mycerts/certificate.crt:ro
+      - /etc/ssl/mycerts/private.key:/etc/ssl/mycerts/private.key:ro
 
   reverse-proxy-arm32:
     platform: linux/arm/v7                   # <-- specify ARM32 platform
@@ -40,3 +43,6 @@ services:
       - "80:80"
     depends_on:
       - backend-arm32
+    volumes:
+      - /etc/ssl/mycerts/certificate.crt:/etc/ssl/mycerts/certificate.crt:ro
+      - /etc/ssl/mycerts/private.key:/etc/ssl/mycerts/private.key:ro
